@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Sistema acadêmico</title>
+    </head>
+    <body>
+        <h1>Adicionar estudante</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">
+                Salvar
+            </button>
+        </form>
+    </body>
+</html>
