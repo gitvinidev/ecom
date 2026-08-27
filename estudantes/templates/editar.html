@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil do Estudante</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        .form-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 { margin-top: 0; margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.625rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            outline: 2px solid var(--primary-color);
+        }
+        .errorlist {
+            color: #dc2626;
+            padding-left: 1.25rem;
+            font-size: 0.875rem;
+            margin: 0.25rem 0;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        button, .btn-cancel {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-cancel {
+            background-color: #e2e8f0;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Editar Informação do Estudante</h2>
+    
+    <form method="post" novalidate>        
+        {% csrf_token %}
+        
+        <!-- Erro do tipo Non-field errors (e.g., restrição para campos únicos) -->
+        {% if form.non_field_errors %}
+            <div class="errorlist">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <!-- Renderizando o formulário para controle completo HTML5/CSS -->
+        {% for atrib in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ atrib.label }}</label>
+                {{ atrib }}
+                {% if atrib.help_text %}
+                    <small style="color: #64748b;">{{ atrib.help_text }}</small>
+                {% endif %}
+                {% if atrib.errors %}
+                    <div class="errorlist">
+                        {{ atrib.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="btn-group">
+            <button type="submit">Salvar</button>
+            <a href="{% url 'listagem' %}" class="btn-cancel">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

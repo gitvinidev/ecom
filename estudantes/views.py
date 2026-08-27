@@ -15,8 +15,19 @@ def listarEstudantes(request):
     }
     return render(request, 'listagem.html', contexto)
 
-def editarEstudantes(request):
-    return HttpResponse('<h1>Editando estudante<h1>')
+def editarEstudantes(request, id=None):
+    estudante = Estudante.objects.get(pk=id)
+    form = EstudanteForm(request.POST or None, request.FILES or None, instance=estudante)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    contexto = {
+        'form' : form
+    }
+    return render(request, 'editar.html', contexto)
+    
+
+    return
 
 def adicionarEstudante(request):
     form = EstudanteForm(request.POST or None)
@@ -27,5 +38,15 @@ def adicionarEstudante(request):
     dicionario = {
         'form': form
     }
-    return render(request, 'estudante.html', dicionario)
+    return render(request, 'adicionar.html', dicionario)
+
+def deletarEstudante(request, id=None):
+    
+    estudante = Estudante.objects.get(pk=id)
+    #if request.method == 'POST':
+    #    estudante.delete()
+    #    return redirect('/')
+    estudante.delete()
+    return redirect('/')
+
 
