@@ -9,6 +9,7 @@ class Estudante(models.Model):
     email = models.EmailField(unique=True)
     nascimento = models.DateField()
     senha = models.CharField(max_length=16)
+    foto = models.ImageField(upload_to = 'fotos/estudantes', null=True)
 
     def __str__(self):
         return self.nome
