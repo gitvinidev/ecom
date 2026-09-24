@@ -50,3 +50,5 @@ def deletarEstudante(request, id=None):
     return redirect('/')
 
 
+
+

@@ -1,49 +1,33 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Estudante</title>
-    <link rel="stylesheet" href="{% static 'css/form.css' %}">
-</head>
-<body>
-
-<div class="form-container">
-    <h2>Adicionar Estudante</h2>
-    
-    <form method="post" novalidate enctype="multipart/form-data">        
-        {% csrf_token %}
+<html>
+    <head>
         
-        <!-- Erro do tipo Non-field errors (e.g., restrição para campos únicos) -->
-        {% if form.non_field_errors %}
-            <div class="errorlist">
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
-
-        <!-- Renderizando o formulário para controle completo HTML5/CSS -->
-        {% for atrib in form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ atrib.label }}</label>
-                {{ atrib }}
-                {% if atrib.help_text %}
-                    <small style="color: #64748b;">{{ atrib.help_text }}</small>
-                {% endif %}
-                {% if atrib.errors %}
-                    <div class="errorlist">
-                        {{ atrib.errors }}
+        <title> Sistema Acadêmico (adicionar) </title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <h1> Adicionar Estudante</h1> 
+            <div class = "form-container">
+                <form method="post" enctype="multipart/form-data">
+                    {% for atrib in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ atrib.label }}</label>
+                        {{ atrib }}
+                        {% if atrib.help_text %}
+                            <small style="color: #64748b;">{{ atrib.help_text }}</small>
+                        {% endif %}
+                        {% if atrib.errors %}
+                            <div class="errorlist">
+                                {{ atrib.errors }}
+                            </div>
+                        {% endif %}
                     </div>
-                {% endif %}
+                {% endfor %}
+                    <button type="submit">
+                        Salvar
+                    </button>
+                    {% csrf_token %}
+                </form>
             </div>
-        {% endfor %}
-
-        <div class="btn-group">
-            <button type="submit">Salvar</button>
-            <a href="{% url 'listagem' %}" class="btn-cancel">Cancelar</a>
-        </div>
-    </form>
-</div>
-
-</body>
+    </body>
 </html>

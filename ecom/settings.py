@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-r5fzfvlima%8xkjmqrkcj)-k2!=bh)mz+3s$-rpf-mi+ynmj!m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'estudantes',
+    'academico',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,11 @@ USE_TZ = True
 import os
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
 MEDIA_ROOT = BASE_DIR /'midias'
 MEDIA_URL = '/midias/'
 
